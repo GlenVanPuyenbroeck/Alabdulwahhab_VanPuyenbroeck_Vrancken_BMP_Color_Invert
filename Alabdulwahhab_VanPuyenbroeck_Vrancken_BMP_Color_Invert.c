@@ -1,10 +1,10 @@
 /*
-* author 1: Alabdulwahhab Ali
-* author 2: Van Puyenbroeck Glen
-* author 3: Wesley Vrancken
+* auteur 1: Alabdulwahhab Ali
+* auteur 2: Van Puyenbroeck Glen
+* auteur 3: Wesley Vrancken
 * Link to github repository: https://github.com/GlenVanPuyenbroeck/Alabdulwahhab_VanPuyenbroeck_Vrancken_BMP_Color_Invert
 *
-*source references: 
+*Bron vermeldingen: 
 *http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm
 *https://gitlab.com/cp2_arduino_8x8ledmatrix/cp2_bmp_edit
 *https://stackoverflow.com/questions/31608867/about-bmp-file-how-can-i-write-change-a-pixel-color-in-c
@@ -17,51 +17,51 @@
 
 int main(void)
 {
-	FILE *pointer = fopen("watamote.bmp","rb");
+	FILE *pointer = fopen("bmpwatamote.bmp","rb");
 	FILE *invers = fopen("invers.bmp","wb");
 
 	char a = 0;
-	char R = 0;
-	char B = 0;
-	char G = 0 ; 
 	
-    if(pointer == NULL)
+	 if(pointer == NULL)
     {
-        /* Unable to open file hence exit */
-        printf("Unable to open file.\n");
-        printf("Please check whether file exists and you have read privilege.\n");
+        
+        printf("File werd niet geopend.\n");
+        
         exit(EXIT_FAILURE);
     }
 
-    /* File open success message */
-    printf("File opened successfully. Reading file contents character by character. \n\n");
+
+   
+    printf("File werd geopend , karakters worden nu ingelezen\n\n");
 
     for (int i = 0; i < 54; i++)
 	{
-        	/* Read single character from file */
-        	a = fgetc(pointer);
+       
+        a = fgetc(pointer); // leest de karakters stukje per stukje
 
-        	/* Print character read on console */
-        	fputc(a,invers);	
-    	} 
-	
-    for(int i = 54 ; i < LENGTE; i++)
-	{
-		 R = ~R;
-		 B = ~B;
-		 G = ~G;
+        fputc(a,invers); // zet de gelezen karakters in de nieuwe file
 		
-		 R = fgetc(pointer);
-		 B = getc(pointer);
-		 G = getc(pointer);
-
-        	/* Print character read on console */
-        	fputc(R,invers);
-		fputc(B,invers);
-		fputc(G,invers);
-	}
+    } 
+	
+	 for (int i = 54; i < LENGTE; i++)
+	{
+		
+        
+        a = fgetc(pointer);
+		 
+	a = ~a; // karakters worden eerst geinverteerd voordat ze in de file word gezet
+		 
+        fputc(a,invers);
+		
+    } 
+	
 	
     fclose(pointer);
+
 	
     return 0;
 }
+
+	
+	
+
