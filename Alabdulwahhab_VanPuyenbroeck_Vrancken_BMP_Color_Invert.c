@@ -1,7 +1,13 @@
-//bronvermeldingen: 
-/*http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm
-/*https://gitlab.com/cp2_arduino_8x8ledmatrix/cp2_bmp_edit
-/*https://stackoverflow.com/questions/31608867/about-bmp-file-how-can-i-write-change-a-pixel-color-in-c
+/*
+* author 1: Alabdulwahhab Ali
+* author 2: Van Puyenbroeck Glen
+* author 3: Wesley Vrancken
+* Link to github repository: https://github.com/GlenVanPuyenbroeck/Alabdulwahhab_VanPuyenbroeck_Vrancken_BMP_Color_Invert
+*
+*source references: 
+*http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm
+*https://gitlab.com/cp2_arduino_8x8ledmatrix/cp2_bmp_edit
+*https://stackoverflow.com/questions/31608867/about-bmp-file-how-can-i-write-change-a-pixel-color-in-c
 */
 
 #include <stdio.h>
@@ -15,12 +21,11 @@ int main(void)
 	FILE *invers = fopen("invers.bmp","wb");
 
 	char a = 0;
-	
 	char R = 0;
 	char B = 0;
 	char G = 0 ; 
 	
-	 if(pointer == NULL)
+    if(pointer == NULL)
     {
         /* Unable to open file hence exit */
         printf("Unable to open file.\n");
@@ -28,46 +33,35 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-
     /* File open success message */
     printf("File opened successfully. Reading file contents character by character. \n\n");
 
     for (int i = 0; i < 54; i++)
 	{
-        /* Read single character from file */
-        a = fgetc(pointer);
+        	/* Read single character from file */
+        	a = fgetc(pointer);
 
-        /* Print character read on console */
-        fputc(a,invers);
-		
-		
-		
-		
-    } 
+        	/* Print character read on console */
+        	fputc(a,invers);	
+    	} 
 	
-	for(int i = 54 ; i < LENGTE; i++)
+    for(int i = 54 ; i < LENGTE; i++)
 	{
-		
-		R= ~R;
-		B= ~B;
-		G= ~G;
+		 R = ~R;
+		 B = ~B;
+		 G = ~G;
 		
 		 R = fgetc(pointer);
 		 B = getc(pointer);
 		 G = getc(pointer);
 
-        /* Print character read on console */
-		
-        fputc(R,invers);
+        	/* Print character read on console */
+        	fputc(R,invers);
 		fputc(B,invers);
 		fputc(G,invers);
 	}
+	
     fclose(pointer);
-
 	
     return 0;
 }
-
-	
-	
-
