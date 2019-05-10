@@ -41,49 +41,55 @@ int main(void)
                
     return 0;
 }
-    printf("File werd geopend , karakters worden nu ingelezen\n\n");
 
-    for (int i = 0; i < 54; i++)
-	{
-		teller++; 
-		
-		
-		
-		d = (int*)malloc(sizeof(BMPHeader));
-		
-        a = fgetc(pointer); // leest de karakters stukje per stukje
-		
-		d = &a;
-		
-        fputc(a,invers); // zet de gelezen karakters in de nieuwe file
-		
-		*array[i] = d ; 
-		
-		free(d);
-			
-    } 
-	printf("Breedte pixels is %d\n",*array[19]);
-	printf("Hoote pixels is %d\n",*array[23]);
-
-
-	 for (int i = 54; i < LENGTE; i++)
-	{
-		
-        
-        a = fgetc(pointer);
-		 
-		a = ~a; // karakters worden eerst geinverteerd voordat ze in de file word gezet
-		 
-        fputc(a,invers);
-		
-    } 
+void Data(FILE *bestand,FILE *nieuwebestand, int *y, int *w)
+{
+	int teller = 0;
+	int a = 0;
+	int array[54];
 	
-	free(d);
-    fclose(pointer);
-	fclose(invers);
-
+	int *g = NULL ; 
+	int *h = NULL ; 
 	
-    return 0;
+			g = (int*)malloc(sizeof(int)); 			// De pointers hebben nu een plaats gereserveerd in de heap memory.
+			h = (int*)malloc(sizeof(int)); 
+	
+		for (int i = 0; i < 54; i++)
+				{
+							a = fgetc(bestand); 	// Leest de karakters één per één.
+							fputc(a,nieuwebestand); // Zet de gelezen karakters in de nieuwe file.	
+								
+					teller++; 
+					array[i] = a;	
+			    }
+		printf("De eerste 2 waardes zijn %c en %c \n",array[0],array[1]); 
+		if (array[0] != 66 && array[1] != 77) 		// Als de waardes van de arrays niet 66 en 77 zijn is het geen BMP file.
+		{
+			printf("Type file klopt niet. Einde programma\n");
+			exit(EXIT_FAILURE);
+		}
+		
+				else if(array[18] == 44 && array[22] == 44)
+				{
+				printf("Breedte en lengte is te klein, verander het alstublieft\nEinde programma.\n");
+				exit(EXIT_FAILURE);
+				}
+				
+						else
+						{
+							printf("Het is een BMP file.\n");
+						}
+				
+		g = &array[18]; // De string op plaats 18 en 22 zitten nu in de heap memory.
+		h = &array[22]; 
+	
+	
+	GrooteAfbeelding(bestand ,nieuwebestand,g,h);				
+	fclose(bestand);
+	fclose(nieuwebestand);
+	free(g);// Deallocatie geheugen van de pointer.
+	free(h);
+	
 }
 
 
