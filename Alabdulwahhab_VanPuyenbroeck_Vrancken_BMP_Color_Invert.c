@@ -15,32 +15,32 @@
 
 void Data(FILE*,FILE*,int*,int*);  				// Deze functie koppieërd de header naar de nieuwe file.
 void InversData(FILE*,FILE*,int); 				// Deze functie inverteerd de kleuren.
-void GrooteAfbeelding(FILE*,FILE*,int*,int*); 	// Deze functie berekend de oppervlakte van de BMP file.
+void GrooteAfbeelding(FILE*,FILE*,int*,int*); 			// Deze functie berekend de oppervlakte van de BMP file.
 
 int main(void)
-{	
-	int teller=0;
-	
-	
-	FILE *pointer = fopen("bmpwatamote.bmp","rb");
-	FILE *invers = fopen("invers.bmp","wb");
-	
-
-	int a = 0;
-	int b = 0;
-	int c = 0;
-	int *d= NULL;
-	
-	printf("%d\n",sizeof(BMPHeader));
-	
-	if(pointer == NULL)
-    {
-        
-        printf("File werd niet geopend.\n");
-        
-        exit(EXIT_FAILURE);
-    }
-
+{             
+                int teller=0;
+                int lengte = 0;
+                int *d = NULL;
+                int *e = NULL;
+               
+                FILE *pointer = fopen("download.bmp","rb"); 	      // Deze opent de input file.
+                FILE *invers = fopen("invers.bmp","wb");              // Zal het geïnverteerde bestand aanmaken met de naam "invers".
+ 
+                int a = 0;
+ 
+                              if(pointer == NULL)   		      // Als de file pointer een null geeft zal de programma stoppen met werken.
+                               {
+                                     printf("File werd niet geopend.\n");
+                                     exit(EXIT_FAILURE);
+                               }
+ 
+                                printf("File werd geopend , karakters worden nu ingelezen\n\n");
+ 
+                Data(pointer,invers,d,e);                              // verwijzing naar de functie data
+               
+    return 0;
+}
     printf("File werd geopend , karakters worden nu ingelezen\n\n");
 
     for (int i = 0; i < 54; i++)
