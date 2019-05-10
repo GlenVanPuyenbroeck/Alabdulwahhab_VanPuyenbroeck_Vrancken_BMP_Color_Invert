@@ -91,5 +91,61 @@ void Data(FILE *bestand,FILE *nieuwebestand, int *y, int *w)
 	free(h);
 	
 }
+void GrooteAfbeelding(FILE*originele,FILE* hallo ,int *c , int *z)
 
+{
 
+                int lengte =0;
+
+               
+
+                printf("Breedte pixels is %d\n",*c);
+
+                printf("Hoogte pixels is %d\n",*z);
+
+                lengte = ((*c)*(*z)*4)+54;
+
+                printf("Oppervlakte afbeelding = %d\n",lengte); // Standaard formule voor het berekenen van de omtrek.
+
+    InversData(originele,hallo,lengte);
+
+}
+
+ 
+
+void InversData(FILE *origineel,FILE* nieuw, int lang)
+
+{
+
+                int a = 0;
+
+                int *d = NULL;
+
+ 
+
+                for (int i = 54; i < lang; i++)
+
+                    {
+
+                          d = (int*)malloc(sizeof(int));
+                          a = fgetc(origineel);
+                          a = ~a; // Karakters worden eerst geïnverteerd voordat ze in de file gezet wordt.
+                          d = &a;
+                          fputc(a,nieuw);
+		    }
+
+                free(d);
+
+                fclose(origineel);
+
+                fclose(nieuw);
+
+                printf("De afbeelding is met succes aangemaakt. Einde programma\n");
+
+}
+
+/*
+*Deze programma veranderd de kleuren van een BMP file;
+*@param = FILE *pointer.
+*@return = is void.
+*/          
